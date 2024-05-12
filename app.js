@@ -1,4 +1,4 @@
-import pool from "./Repository/db.js";
+import pool from "./repository/db.js";
 import express from "express";
 import userRouter from "./routes/users.js";
 
