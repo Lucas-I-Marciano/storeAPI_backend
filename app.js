@@ -1,12 +1,17 @@
-import pool from "./Repository/db.js";
+import pool from "./repository/db.js";
 import express from "express";
+import BaseRepository from "./repository/BaseRepository.js";
 
 import "dotenv/config";
 
+import usersRouter from "./routes/users.js";
+
 const app = express();
 
-app.get("/", (req, res) => {
-  const result = pool.query("SELECT * FROM users").rows;
+app.use("/users", usersRouter);
+
+app.get("/users", async (req, res) => {
+  const result = await new BaseRepository().getAll("users");
   res.status(200).send(result);
 });
 

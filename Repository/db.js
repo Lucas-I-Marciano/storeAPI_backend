@@ -11,8 +11,4 @@ const pool = new Pool({
   database: process.env.DB_DATABASE,
 });
 
-// console.log(process.env.DB_HOST);
-console.log((await pool.query("SELECT * FROM users")).rows);
-// console.log(pool);
-
 export default pool;
