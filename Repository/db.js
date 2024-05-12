@@ -1,5 +1,6 @@
 import pg from "pg";
 const { Pool } = pg;
+import "dotenv/config";
 
 // It is like a pool of connection. Instead of any time I need a connection I made a request, I will just use one of the connections here on the Pool
 const pool = new Pool({

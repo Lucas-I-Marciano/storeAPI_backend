@@ -1,14 +1,13 @@
 import pool from "./Repository/db.js";
 import express from "express";
+import userRouter from "./routes/users.js";
 
 import "dotenv/config";
 
 const app = express();
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  const result = pool.query("SELECT * FROM users").rows;
-  res.status(200).send(result);
-});
+app.use("/users", userRouter);
 
 app.listen(4000, () => {
   return console.log("e-Commerce API running on port 3000");
