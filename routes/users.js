@@ -1,8 +1,9 @@
 import express from "express";
-import pool from "./Repository/db.js";
+import pool from "../repository/db.js";
+import BaseRepository from "../repository/BaseRepository.js";
 import UserRepository from "../Repository/UserRepository.js";
 
-router = express.Router();
+const router = express.Router();
 
 router
   .get("/", async (req, res) => {
@@ -11,6 +12,7 @@ router
   })
   .get("/:id", async (req, res) => {
     const { id } = req.params;
+    // const resultId = await new UserRepository().getById(id);
     const resultId = await new UserRepository().getById(id);
     res.status(200).send(resultId);
   })

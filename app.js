@@ -1,6 +1,8 @@
-import pool from "./repository/db.js";
 import express from "express";
+import pool from "./repository/db.js";
+// import BaseRepository from "./repository/BaseRepository.js";
 import userRouter from "./routes/users.js";
+import UserRepository from "./Repository/UserRepository.js";
 
 import "dotenv/config";
 

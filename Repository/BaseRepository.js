@@ -3,7 +3,6 @@ import pool from "./db.js";
 class BaseRepository {
   async getAll(table, columnsArray) {
     try {
-      let columnsName = "";
       const results = (
         await pool.query(`SELECT ${columnsArray.join()} FROM ${table}`)
       ).rows;
@@ -17,8 +16,8 @@ class BaseRepository {
     try {
       // In order to protect against "SQL Injection" I will not put my ID on my query directly, I will create a string first with $1 to replace to my parametrer.
       // With that I give the security responsability to pg, that is way more prepare than me
-      const queryText = `SELECT ${columnsArray.join()} FROM ${table} WHERE id = '$1'`;
-      const result = (await pool.query(queryText, [id])).rows[0];
+      const queryText = `SELECT ${columnsArray.join()} FROM ${table} WHERE id = $1`;
+      const result = (await pool.query(queryText, [id])).rows;
       return result;
     } catch (erro) {
       throw erro;
@@ -39,7 +38,7 @@ class BaseRepository {
       }); // As I want '$' before each index to pass it as a parametrer. Adding one to start on $1. EX -> ['$1','$2','$3','$4']
       flagsString = flagsString.join(); // '$1,$2,$3,$4'
 
-      queryText = `INSERT INTO ${table} (${columnsArray.join()}) VALUES (${flagsString})`;
+      const queryText = `INSERT INTO ${table} (${columnsArray.join()}) VALUES (${flagsString})`;
 
       await client.query("BEGIN TRANSACTION");
       await client.query(queryText, valuesArray);

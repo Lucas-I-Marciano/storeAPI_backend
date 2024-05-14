@@ -36,6 +36,14 @@ class UserRepository extends BaseRepository {
       throw error;
     }
   }
+
+  async deleteById(id) {
+    try {
+      super.deleteById(id);
+    } catch (erro) {
+      throw erro;
+    }
+  }
 }
 
 export default UserRepository;
