@@ -39,7 +39,15 @@ class UserRepository extends BaseRepository {
 
   async deleteById(id) {
     try {
-      super.deleteById(id);
+      super.deleteById("users", id);
+    } catch (erro) {
+      throw erro;
+    }
+  }
+
+  async updateById(column, newValue, id) {
+    try {
+      super.updateById("users", column, newValue, id);
     } catch (erro) {
       throw erro;
     }

@@ -27,6 +27,22 @@ router
 
     await new UserRepository().insertOne(valuesArray);
     res.status(200).send();
+  })
+  .delete("/:id", async (req, res) => {
+    const { id } = req.params;
+    await new UserRepository().deleteById(id);
+    res.status(200).send("Deleted!!");
+  })
+  .put("/:id", async (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+    // console.log(Object.values(body)[0]);
+    await new UserRepository().updateById(
+      Object.keys(body)[0],
+      Object.values(body)[0],
+      id
+    );
+    res.status(200).send("Updated!!");
   });
 
 export default router;

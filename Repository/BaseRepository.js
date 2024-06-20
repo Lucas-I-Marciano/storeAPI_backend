@@ -24,6 +24,31 @@ class BaseRepository {
     }
   }
 
+  async deleteById(table, id) {
+    try {
+      // In order to protect against "SQL Injection" I will not put my ID on my query directly, I will create a string first with $1 to replace to my parametrer.
+      // With that I give the security responsability to pg, that is way more prepare than me
+      const queryText = `DELETE FROM ${table} WHERE id = $1`;
+      const result = (await pool.query(queryText, [id])).rows;
+      return result;
+    } catch (erro) {
+      throw erro;
+    }
+  }
+
+  async updateById(table, column, newValue, id) {
+    try {
+      // In order to protect against "SQL Injection" I will not put my ID on my query directly, I will create a string first with $1 to replace to my parametrer.
+      // With that I give the security responsability to pg, that is way more prepare than me
+      const queryText = `UPDATE ${table} SET ${column} = '${newValue}' WHERE id = $1`;
+      console.log(queryText);
+      const result = (await pool.query(queryText, [id])).rows;
+      return result;
+    } catch (erro) {
+      throw erro;
+    }
+  }
+
   // As I am using Postgre database, I will use TRANSACTION and COMMIT to deal with other methods of CRUD.
   // To do that, I can not use pool.query("TRANSACTION") and afterwards pool.query("INSERT ...") because TRANSACTION it is related to the connection of the pool, and when I run two lines of pool.query, it could get different connection for each line
 
